@@ -1,0 +1,10 @@
+---
+- hosts: all
+  vars:
+    file_to_pull: "my_file.zip"
+    aws_key: "{{ lookup('env','S3_AWS_ACCESS_KEY_ID') }}"
+    aws_secret: "{{ lookup('env','S3_AWS_SECRET_ACCESS_KEY') }}"
+  tasks:
+  - name: Copy my_file from S3
+    s3: bucket="my-bucket-name" object="{{file_to_pull}}" dest="{{file_to_pull}}" mode=get aws_access_key="{{aws_key}}" aws_secret_key="{{aws_secret}}"
+
